@@ -1,0 +1,154 @@
+<div class="">
+  <div style="height:100vh;">
+    <div class="">
+      <div class="shadow w-20 p-5 position-absolute top-50 start-50 translate-middle">
+        <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+          <h4 class="display-6 text-center py-2">CUSTOMER DATABASE</h4>
+          
+          <div class="">
+            <label for="id">Customer id</label>
+            <div class="">
+              <input id="id" required #id="ngModel" (ngModel)="id" name="id" type="text"
+                class="form-control" placeholder="Enter Customer id" pattern="(^\d{3}$)">
+              <div *ngIf="id.invalid && id.touched"> 
+                <small class="text-danger" *ngIf="id.errors?.['required']">Required</small>
+                <small class="text-danger" *ngIf="id.errors?.['pattern']">Must be a valid number
+                </small>
+
+              </div>
+            </div>
+          </div><br>
+          
+          <div class="">
+            <label for="name">Customer name</label>
+            <div class="">
+              <input id="name" required #name="ngModel" (ngModel)="name" name="name" type="text"
+                class="form-control" placeholder="Enter Customer name">
+              <div *ngIf="name.invalid && name.touched">
+               <small class="text-danger" *ngIf="name.errors?.['required']">Required</small> 
+              </div> 
+            </div>
+          </div><br>
+          
+          <div class="">
+            <label for="ord_date">order date</label>
+            <div class="">
+              <input id="ord_date" required #ord_date="ngModel" (ngModel)="ord_date" name="ord_date" type="text"
+                class="form-control" placeholder="Enter orderdate">
+               <div *ngIf="ord_date.invalid && ord_date.touched"> 
+                <small class="text-danger" *ngIf="ord_date.errors?.['required']">Required</small> 
+               </div> 
+            </div>
+          </div><br>
+
+          <div class="">
+            <label for="ord_id">order id</label>
+            <div class="">
+              <input id="ord_id" required #ord_id="ngModel" (ngModel)="ord_id" name="ord_id" type="text"
+                class="form-control" placeholder="Enter ord-id">
+               <div *ngIf="ord_id.invalid && ord_id.touched"> 
+                <small class="text-danger" *ngIf="ord_id.errors?.['required']">Required</small> 
+              </div> 
+            </div>
+          </div><br>
+  
+          <div class="form-group text-center">
+            <input class="btn btn-primary" type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div><br>
+
+  <div class="mt-5">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th> Customer id</th>
+          <th>Customer name</th>
+          <th>Customer ord_date</th>
+          <th>Customer ord_id</th>
+          <!-- <th>State</th> -->
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Customer of CustomerDetails">
+          <td>{{Customer.id}}</td>
+          <td>{{Customer.name}}</td>
+          <td>{{Customer.ord_date}}</td>
+          <td>{{Customer.ord_id}}</td>
+          <!-- <td>{{Employee.state}}</td> -->
+          <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="edit(Customer)">Edit</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteCustomer(Customer)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Update Customer</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #updateForm="ngForm" (ngSubmit)="updateCustomer()">
+            <h4 class="display-6 text-center py-2">Update Customer</h4>
+            
+            <div class="">
+              <label for="id">Customer id</label>
+              <div class="">
+                <input id="id" required #id="ngModel" [(ngModel)]="CustomerToUpdate.id" name="id" type="text"
+                  class="form-control" placeholder="Enter Customer id">
+                <!-- <div *ngIf="id.invalid && id.touched"> -->
+                  <!-- <small class="text-danger" *ngIf="id.errors?.['required']">Required</small> -->
+                <!-- </div> -->
+              </div>
+            </div><br>
+            
+            <div class="">
+              <label for="name">Customer Name</label>
+              <div class="">
+                <input id="name" required #name="ngModel" [(ngModel)]="CustomerToUpdate.name" name="name" type="text"
+                  class="form-control" placeholder="Enter name">
+                <!-- <div *ngIf="name.invalid && name.touched"> -->
+                  <small class="text-danger" *ngIf="name.errors?.['required']">Required</small>
+                <!-- </div> -->
+              </div>
+            </div><br>
+            
+            <div class="">
+              <label for="ord_date">Customer ord_date</label>
+              <div class="">
+                <input id="ord_date" required #ord_date="ngModel" [(ngModel)]="CustomerToUpdate.ord_date" name="ord_date" type="text"
+                  class="form-control" placeholder="Enter your ord_date">
+                <!-- <div *ngIf="ord_date.invalid && ord_date.touched"> -->
+                  <!-- <small class="text-danger" *ngIf="ord_date.errors?.['required']">Required</small> -->
+                <!-- </div> -->
+              </div>
+            </div><br>
+  
+            <div class="">
+              <label for="order_id">Customer order_id</label>
+              <div class="">
+                <input id="ord_id" required #order_id="ngModel" [(ngModel)]="CustomerToUpdate.ord_id" name="order_id" type="text"
+                  class="form-control" placeholder="Enter order_id">
+                <!-- <div *ngIf="salary.invalid && salary.touched"> -->
+                  <!-- <small class="text-danger" *ngIf="salary.errors?.['required']">Required</small> -->
+                <!-- </div> -->
+              </div>
+            </div><br>
+       
+            <div class="form-group text-center">
+              <input class="btn btn-primary" type="submit" value="Update">
+            </div>
+          </form>
+        </div>
+      </div>
+     </div>
+  </div>
+</div>
